@@ -1,9 +1,22 @@
 package com.intzi.main;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.util.Random;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import com.intzi.exercises.MaxNumbers;
+import com.intzi.pool.ThreadPool;
 import com.intzi.simple_runnable.ExtendingThread;
 import com.intzi.simple_runnable.InterruptingThread;
 import com.intzi.simple_runnable.MergingSort;
 import com.intzi.simple_runnable.PointlessPrint;
+import com.intzi.swing_countdown.CountDown;
+import com.intzi.sync.SyncExample;
+import com.intzi.sync.SyncExample2;
 
 public class MyMain {
 	public static void main(String[] args) {
@@ -88,7 +101,82 @@ public class MyMain {
 			
 			System.err.println("Main End");
 		*/
+	
+		// ~~~ Synchronized ~~~
+		/*
+			SyncExample se = new SyncExample();
+			SyncExample se2 = new SyncExample();
+			
+			se.start();
+			se2.start();
+			
+			try {
+				se.join();
+				se2.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("Count: "+se.getCount());
+		*/
 		
+		// ~~~ Synchronized 2 - Using Locks ~~~
+		/*
+			SyncExample2 s = new SyncExample2();
+			Thread t = new Thread(s);
+			
+			SyncExample2 s2 = new SyncExample2();
+			Thread t2 = new Thread(s2);
+			
+			long start = System.currentTimeMillis();
+			
+			t.start();
+			t2.start();
+			try {
+				t.join();
+				t2.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			long end = System.currentTimeMillis();
+			System.out.println("Time: "+(end-start)+" List1: "+s.getList1().size()+" List2: "+s.getList2().size());
+		*/
+		
+		// ~~~ Thread Pool ~~~
+		/*
+			ExecutorService e = Executors.newFixedThreadPool(5);
+			
+			for(int i = 0; i < 5; i++) {
+				e.submit(new ThreadPool(i));
+			}
+			
+			e.shutdown();
+		*/
+		// ~~~ CountDownLatch ~~~
+		/*
+			CountDownLatch latch = new CountDownLatch(3);
+			CountDown cd = new CountDown(latch);
+			Thread t = new Thread(cd);
+			t.start();
+			
+			try {
+				latch.await();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("Hello Man");
+		*/
+		
+		MaxNumbers mn = new MaxNumbers(25, 25);
+		int counter = 0;
+		for (int j : mn.start()) {
+			System.out.println("Max attr in row "+counter+++" is: "+j);
+			
+		}
 	}
 	
 }
+
