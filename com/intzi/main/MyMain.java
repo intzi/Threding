@@ -15,8 +15,10 @@ import com.intzi.simple_runnable.InterruptingThread;
 import com.intzi.simple_runnable.MergingSort;
 import com.intzi.simple_runnable.PointlessPrint;
 import com.intzi.swing_countdown.CountDown;
+import com.intzi.sync.ReentrantLockExample;
 import com.intzi.sync.SyncExample;
 import com.intzi.sync.SyncExample2;
+import com.intzi.sync.WaitNotify;
 
 public class MyMain {
 	public static void main(String[] args) {
@@ -170,12 +172,21 @@ public class MyMain {
 			System.out.println("Hello Man");
 		*/
 		
-		MaxNumbers mn = new MaxNumbers(25, 25);
-		int counter = 0;
-		for (int j : mn.start()) {
-			System.out.println("Max attr in row "+counter+++" is: "+j);
-			
-		}
+		// ~~~ Find The Max Number of each row ~~~
+		/*
+			MaxNumbers mn = new MaxNumbers(25, 25);
+			int counter = 0;
+			for (int j : mn.start()) {
+				System.out.println("Max attr in row "+counter+++" is: "+j);
+				
+			}
+		*/
+		
+		// ~~~ Wait And Notify ~~~
+		//new WaitNotify();
+		
+		new ReentrantLockExample();
+		
 	}
 	
 }
